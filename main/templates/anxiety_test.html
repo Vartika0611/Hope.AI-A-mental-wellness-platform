@@ -1,0 +1,219 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Anxiety Test | Hope.AI{% endblock %}
+
+{% block content %}
+<h2 class="text-center fw-bold mb-4">Anxiety Self-Assessment</h2>
+<p class="text-center"><strong>Time left: <span id="timer" class="text-danger">05:00</span></strong></p>
+
+<form id="anxiety-form" class="container">
+  <ol class="list-unstyled">
+    <li class="mb-3 p-3 border rounded shadow-sm bg-light">
+      <label class="form-label fw-semibold">I feel nervous, anxious, or on edge.</label>
+      <select name="q1" class="form-select" required>
+        <option value="0">Not at all</option>
+        <option value="1">Several days</option>
+        <option value="2">More than half the days</option>
+        <option value="3">Nearly every day</option>
+      </select>
+    </li>
+
+    <li class="mb-3 p-3 border rounded shadow-sm bg-light">
+      <label class="form-label fw-semibold">I am unable to stop or control worrying.</label>
+      <select name="q2" class="form-select" required>
+        <option value="0">Not at all</option>
+        <option value="1">Several days</option>
+        <option value="2">More than half the days</option>
+        <option value="3">Nearly every day</option>
+      </select>
+    </li>
+
+    <li class="mb-3 p-3 border rounded shadow-sm bg-light">
+      <label class="form-label fw-semibold">I worry too much about different things.</label>
+      <select name="q3" class="form-select" required>
+        <option value="0">Not at all</option>
+        <option value="1">Several days</option>
+        <option value="2">More than half the days</option>
+        <option value="3">Nearly every day</option>
+      </select>
+    </li>
+
+    <li class="mb-3 p-3 border rounded shadow-sm bg-light">
+      <label class="form-label fw-semibold">I have trouble relaxing.</label>
+      <select name="q4" class="form-select" required>
+        <option value="0">Not at all</option>
+        <option value="1">Several days</option>
+        <option value="2">More than half the days</option>
+        <option value="3">Nearly every day</option>
+      </select>
+    </li>
+
+    <li class="mb-3 p-3 border rounded shadow-sm bg-light">
+      <label class="form-label fw-semibold">I am so restless that it's hard to sit still.</label>
+      <select name="q5" class="form-select" required>
+        <option value="0">Not at all</option>
+        <option value="1">Several days</option>
+        <option value="2">More than half the days</option>
+        <option value="3">Nearly every day</option>
+      </select>
+    </li>
+
+    <li class="mb-3 p-3 border rounded shadow-sm bg-light">
+      <label class="form-label fw-semibold">I become easily annoyed or irritable.</label>
+      <select name="q6" class="form-select" required>
+        <option value="0">Not at all</option>
+        <option value="1">Several days</option>
+        <option value="2">More than half the days</option>
+        <option value="3">Nearly every day</option>
+      </select>
+    </li>
+
+    <li class="mb-3 p-3 border rounded shadow-sm bg-light">
+      <label class="form-label fw-semibold">I feel afraid as if something awful might happen.</label>
+      <select name="q7" class="form-select" required>
+        <option value="0">Not at all</option>
+        <option value="1">Several days</option>
+        <option value="2">More than half the days</option>
+        <option value="3">Nearly every day</option>
+      </select>
+    </li>
+
+    <li class="mb-3 p-3 border rounded shadow-sm bg-light">
+      <label class="form-label fw-semibold">I avoid situations that make me feel anxious.</label>
+      <select name="q8" class="form-select" required>
+        <option value="0">Not at all</option>
+        <option value="1">Several days</option>
+        <option value="2">More than half the days</option>
+        <option value="3">Nearly every day</option>
+      </select>
+    </li>
+
+    <li class="mb-3 p-3 border rounded shadow-sm bg-light">
+      <label class="form-label fw-semibold">I find it difficult to control my worries even when I try.</label>
+      <select name="q9" class="form-select" required>
+        <option value="0">Not at all</option>
+        <option value="1">Several days</option>
+        <option value="2">More than half the days</option>
+        <option value="3">Nearly every day</option>
+      </select>
+    </li>
+
+    <li class="mb-3 p-3 border rounded shadow-sm bg-light">
+      <label class="form-label fw-semibold">I feel tense muscles or physical discomfort due to anxiety.</label>
+      <select name="q10" class="form-select" required>
+        <option value="0">Not at all</option>
+        <option value="1">Several days</option>
+        <option value="2">More than half the days</option>
+        <option value="3">Nearly every day</option>
+      </select>
+    </li>
+
+    <li class="mb-3 p-3 border rounded shadow-sm bg-light">
+      <label class="form-label fw-semibold">I have sleep difficulties because of worry or anxiety.</label>
+      <select name="q11" class="form-select" required>
+        <option value="0">Not at all</option>
+        <option value="1">Several days</option>
+        <option value="2">More than half the days</option>
+        <option value="3">Nearly every day</option>
+      </select>
+    </li>
+
+    <li class="mb-3 p-3 border rounded shadow-sm bg-light">
+      <label class="form-label fw-semibold">I experience panic or sudden surges of fear.</label>
+      <select name="q12" class="form-select" required>
+        <option value="0">Not at all</option>
+        <option value="1">Several days</option>
+        <option value="2">More than half the days</option>
+        <option value="3">Nearly every day</option>
+      </select>
+    </li>
+  </ol>
+
+  <div class="text-center mt-4">
+    <button type="submit" class="btn btn-success px-4 py-2">Submit</button>
+  </div>
+</form>
+
+<div id="time-over-message" class="text-center mt-4" style="display: none;">
+  <h4 class="text-danger fw-bold">Time Over!</h4>
+  <button class="btn btn-warning mt-2" onclick="location.reload()">Try Again</button>
+</div>
+
+<div id="result-section" style="display: none;" class="mt-5 text-center">
+  <h4 id="result-message" class="fw-bold"></h4>
+  <canvas id="anxietyResultChart" style="max-width: 500px; width: 100%; height: auto; margin: 0 auto;"></canvas>
+  <button class="btn btn-warning mt-3" onclick="location.reload()">Try Again</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  let timeLeft = 300;
+  const timerDisplay = document.getElementById("timer");
+  const form = document.getElementById("anxiety-form");
+  const resultSection = document.getElementById("result-section");
+  const resultMessage = document.getElementById("result-message");
+  const timeOverMessage = document.getElementById("time-over-message");
+  const chartCanvas = document.getElementById("anxietyResultChart");
+  let isTimeOver = false;
+
+  const countdown = setInterval(() => {
+    let min = Math.floor(timeLeft / 60);
+    let sec = timeLeft % 60;
+    timerDisplay.textContent = `${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
+    timeLeft--;
+
+    if (timeLeft < 0) {
+      clearInterval(countdown);
+      isTimeOver = true;
+      form.style.display = "none";
+      timeOverMessage.style.display = "block";
+      timerDisplay.textContent = "Time Over";
+    }
+  }, 1000);
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (isTimeOver) return;
+
+    clearInterval(countdown);
+
+    let total = 0;
+    for (let i = 1; i <= 12; i++) {
+      total += parseInt(document.querySelector(`select[name="q${i}"]`).value);
+    }
+
+    form.style.display = "none";
+    resultSection.style.display = "block";
+
+    let level = "Minimal";
+    if (total >= 10 && total < 20) level = "Moderate";
+    else if (total >= 20) level = "High";
+
+    resultMessage.innerText = `Your Anxiety Level: ${level} (${total}/36)`;
+
+    new Chart(chartCanvas, {
+      type: 'bar',
+      data: {
+        labels: ['Anxiety Score'],
+        datasets: [{
+          label: 'Your Score',
+          data: [total],
+          backgroundColor: '#198754',
+          borderColor: '#145c44',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 36
+          }
+        }
+      }
+    });
+  });
+</script>
+{% endblock %}
