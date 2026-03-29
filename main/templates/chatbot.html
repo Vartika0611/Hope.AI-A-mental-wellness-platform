@@ -1,0 +1,284 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Hope.AI Chatbot{% endblock %}
+
+{% block content %}
+<div class="chat-container py-5">
+  <div class="chat-box shadow">
+    <h2 class="chat-title">🍀 Talk to <span class="brand">Hope.AI</span></h2>
+
+    <div id="chatbox" class="chat-area">
+      <div class="start-text">🌺 Start your conversation below 👇</div>
+    </div>
+
+    <form id="chat-form" class="chat-input-area" enctype="multipart/form-data">
+      <input type="file" id="file-input" class="d-none" multiple>
+      <input type="file" id="image-upload" class="d-none" accept="image/*">
+
+      <div class="input-wrapper">
+        <input type="text" id="user-input" class="chat-input" placeholder="Ask your query..." required>
+        <div class="chat-tools">
+          <button type="button" class="icon-btn" onclick="document.getElementById('file-input').click()">➕</button>
+          <button type="button" id="upload-btn" class="icon-btn">🖼️</button>
+          <button type="button" id="mic-btn" class="icon-btn" title="Record voice">🎙️</button>
+          <button type="button" id="emoji-btn" class="icon-btn" title="Emoji">😊</button>
+          <button type="submit" class="chat-send">🌿 Send</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<style>
+  body {
+    background: linear-gradient(to bottom right, #e8ffe8, #ffe9f5);
+    font-family: 'Segoe UI', sans-serif;
+  }
+  .chat-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 85vh;
+    background-image: url('{% static "images/bgchat.jpg" %}');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 40px 15px;
+    border-radius: 15px;
+  }
+  .chat-box {
+    width: 100%;
+    max-width: 600px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 25px;
+    padding: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(6px);
+  }
+  .chat-title {
+    text-align: center;
+    color: #5ba972;
+    font-weight: 600;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+  }
+  .brand {
+    color: #da59be;
+  }
+  .chat-area {
+    height: 400px;
+    overflow-y: auto;
+    background: #f9fff9;
+    border-radius: 20px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .start-text {
+    text-align: center;
+    color: #999;
+    font-style: italic;
+    margin-bottom: 8px;
+  }
+  .chat-input-area {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+  }
+  .input-wrapper {
+    display: flex;
+    align-items: center;
+    background: #f0fff0;
+    border-radius: 30px;
+    padding: 6px 12px;
+    box-shadow: inset 2px 2px 5px #d8f7db, inset -2px -2px 5px #ffffff;
+    position: relative;
+  }
+  .chat-input {
+    flex-grow: 1;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 25px;
+    background: #ebfdee;
+    width: 100%;
+    outline: none;
+  }
+  .chat-tools {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .chat-send {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 25px;
+    background: #4e9a57;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    transition: 0.2s ease-in-out;
+  }
+  .chat-send:hover {
+    background: #438759;
+  }
+  .icon-btn {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 0 5px;
+    margin-top: 5px;
+  }
+  .bubble-user, .bubble-ai {
+    margin: 6px 0;
+    padding: 10px 14px;
+    max-width: 80%;
+    word-wrap: break-word;
+    border-radius: 20px;
+  }
+  .bubble-user {
+    background: #ccf3ff;
+    align-self: flex-end;
+    text-align: right;
+  }
+  .bubble-ai {
+    background: #fff0f9;
+    align-self: flex-start;
+  }
+  .typing {
+    font-style: italic;
+    color: gray;
+    animation: blink 1s infinite;
+  }
+  @keyframes blink {
+    50% { opacity: 0.3; }
+  }
+</style>
+
+<script>
+const chatbox = document.getElementById("chatbox");
+const micBtn = document.getElementById("mic-btn");
+let isRecording = false;
+let mediaRecorder;
+let audioChunks = [];
+
+document.getElementById("chat-form").addEventListener("submit", function (e) {
+  e.preventDefault();
+  const userInput = document.getElementById("user-input");
+  const message = userInput.value.trim();
+  if (!message) return;
+
+  chatbox.innerHTML += `<div class="bubble-user ms-auto"><strong>You:</strong> ${message}</div>`;
+  chatbox.scrollTop = chatbox.scrollHeight;
+  userInput.value = "";
+
+  const typingDiv = document.createElement("div");
+  typingDiv.className = "bubble-ai typing";
+  typingDiv.textContent = "HopeAI is typing...";
+  chatbox.appendChild(typingDiv);
+  chatbox.scrollTop = chatbox.scrollHeight;
+
+  fetch("/chatbot_api/", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message: message }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      chatbox.removeChild(typingDiv);
+      if (data.response) {
+        chatbox.innerHTML += `<div class="bubble-ai"><strong>HopeAI:</strong> ${data.response}</div>`;
+        const speech = new SpeechSynthesisUtterance(data.response);
+        speech.lang = "en-US";
+        window.speechSynthesis.speak(speech);
+      } else {
+        chatbox.innerHTML += `<div class="bubble-ai text-danger"><em>Error: ${data.error}</em></div>`;
+      }
+      chatbox.scrollTop = chatbox.scrollHeight;
+    })
+    .catch((err) => {
+      chatbox.removeChild(typingDiv);
+      chatbox.innerHTML += `<div class="bubble-ai text-danger"><em>❌ Chatbot failed: ${err.message}</em></div>`;
+      chatbox.scrollTop = chatbox.scrollHeight;
+    });
+});
+
+// 🎤 Audio Recording
+micBtn.addEventListener("click", async () => {
+  if (isRecording) {
+    mediaRecorder.stop();
+    micBtn.textContent = "🎙️";
+    isRecording = false;
+  } else {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    mediaRecorder = new MediaRecorder(stream);
+    micBtn.textContent = "⏹️ Stop";
+    isRecording = true;
+    audioChunks = [];
+
+    mediaRecorder.ondataavailable = (e) => audioChunks.push(e.data);
+    mediaRecorder.onstop = () => {
+      const audioBlob = new Blob(audioChunks, { type: "audio/mpeg" });
+      const audioURL = URL.createObjectURL(audioBlob);
+      const audioHTML = `<div class="bubble-user ms-auto">
+        <strong>You:</strong> <audio controls src="${audioURL}" style="width: 200px;"></audio>
+      </div>`;
+      chatbox.innerHTML += audioHTML;
+      chatbox.scrollTop = chatbox.scrollHeight;
+    };
+    mediaRecorder.start();
+  }
+});
+
+// 😊 Emoji Picker
+document.getElementById("emoji-btn").addEventListener("click", () => {
+  const emojiOptions = ["😊", "🌸", "💚", "😔", "❤️"];
+  const emojiBox = document.createElement("div");
+  emojiBox.style.position = "absolute";
+  emojiBox.style.bottom = "60px";
+  emojiBox.style.background = "#fff";
+  emojiBox.style.padding = "10px";
+  emojiBox.style.borderRadius = "10px";
+  emojiBox.style.boxShadow = "0 0 10px rgba(0,0,0,0.2)";
+  emojiBox.style.zIndex = "10";
+
+  emojiOptions.forEach((emoji) => {
+    const btn = document.createElement("button");
+    btn.textContent = emoji;
+    btn.style.fontSize = "20px";
+    btn.style.margin = "5px";
+    btn.style.border = "none";
+    btn.style.background = "transparent";
+    btn.onclick = () => {
+      document.getElementById("user-input").value += emoji;
+      emojiBox.remove();
+    };
+    emojiBox.appendChild(btn);
+  });
+
+  document.body.appendChild(emojiBox);
+});
+
+// 🖼️ Image Upload Preview
+document.getElementById("upload-btn").addEventListener("click", () => {
+  document.getElementById("image-upload").click();
+});
+document.getElementById("image-upload").addEventListener("change", function () {
+  const file = this.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    const imageHTML = `
+      <div class="bubble-user ms-auto">
+        <strong>You:</strong><br>
+        <img src="${e.target.result}" style="max-width: 200px; border-radius: 10px;" />
+      </div>`;
+    chatbox.innerHTML += imageHTML;
+    chatbox.scrollTop = chatbox.scrollHeight;
+  };
+  reader.readAsDataURL(file);
+});
+</script>
+{% endblock %}
