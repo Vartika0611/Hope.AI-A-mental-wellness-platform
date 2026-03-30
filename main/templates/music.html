@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Music Library | Hope.AI{% endblock %}
+{% block content %}
+
+<div class="container py-5">
+  <h2 class="text-center mb-4 text-success">🎵 Music Library</h2>
+
+  <form method="get" class="row mb-4">
+    <div class="col-md-6">
+      <input type="text" name="q" value="{{ query }}" class="form-control" placeholder="Search by title or artist">
+    </div>
+    <div class="col-md-4">
+  <label for="genre" class="form-label">Genre</label>
+  <select name="genre" id="genre" class="form-select">
+    <option value="">All Genres</option>
+    <option value="Relax" {% if genre == "Relax" %}selected{% endif %}>Relax</option>
+    <option value="Focus" {% if genre == "Focus" %}selected{% endif %}>Focus</option>
+    <option value="Happy" {% if genre == "Happy" %}selected{% endif %}>Happy</option>
+  </select>
+</div>
+
+    <div class="col-md-2">
+      <button type="submit" class="btn btn-success w-100">Filter</button>
+    </div>
+  </form>
+
+  <div class="row">
+    {% for song in music %}
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title">{{ song.title }}</h5>
+          <p class="card-text">By {{ song.artist }}</p>
+          <p class="badge bg-info">{{ song.genre }}</p>
+          <audio controls class="w-100 mt-2">
+            <source src="{% static 'music/'|add:song.file %}" type="audio/mp3">
+            Your browser does not support the audio element.
+          </audio>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+      <p class="text-center">No music found.</p>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}
