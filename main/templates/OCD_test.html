@@ -1,0 +1,219 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}OCD Test | Hope.AI{% endblock %}
+
+{% block content %}
+<h2 class="text-center fw-bold mb-4">OCD Self-Assessment</h2>
+<p class="text-center"><strong>Time left: <span id="timer" class="text-danger">05:00</span></strong></p>
+
+<form id="ocd-form" class="container">
+  <ol class="list-unstyled">
+    <li class="mb-3 p-3 border rounded shadow-sm bg-light">
+      <label class="form-label fw-semibold">Do you find yourself checking things repeatedly (e.g., locks, appliances)?</label>
+      <select name="q1" class="form-select" required>
+        <option value="0">Not at all</option>
+        <option value="1">A little</option>
+        <option value="2">Moderately</option>
+        <option value="3">Extremely</option>
+      </select>
+    </li>
+
+    <li class="mb-3 p-3 border rounded shadow-sm bg-light">
+      <label class="form-label fw-semibold">Do you have recurring and persistent thoughts that are difficult to dismiss?</label>
+      <select name="q2" class="form-select" required>
+        <option value="0">Not at all</option>
+        <option value="1">A little</option>
+        <option value="2">Moderately</option>
+        <option value="3">Extremely</option>
+      </select>
+    </li>
+
+    <li class="mb-3 p-3 border rounded shadow-sm bg-light">
+      <label class="form-label fw-semibold">Do you feel compelled to perform specific actions (e.g., counting, washing) to ease anxiety?</label>
+      <select name="q3" class="form-select" required>
+        <option value="0">Not at all</option>
+        <option value="1">A little</option>
+        <option value="2">Moderately</option>
+        <option value="3">Extremely</option>
+      </select>
+    </li>
+
+    <li class="mb-3 p-3 border rounded shadow-sm bg-light">
+      <label class="form-label fw-semibold">Do you avoid certain situations or objects due to fear of contamination?</label>
+      <select name="q4" class="form-select" required>
+        <option value="0">Not at all</option>
+        <option value="1">A little</option>
+        <option value="2">Moderately</option>
+        <option value="3">Extremely</option>
+      </select>
+    </li>
+
+    <li class="mb-3 p-3 border rounded shadow-sm bg-light">
+      <label class="form-label fw-semibold">Do you need things to be arranged in a certain order or feel distressed if they aren’t?</label>
+      <select name="q5" class="form-select" required>
+        <option value="0">Not at all</option>
+        <option value="1">A little</option>
+        <option value="2">Moderately</option>
+        <option value="3">Extremely</option>
+      </select>
+    </li>
+
+    <li class="mb-3 p-3 border rounded shadow-sm bg-light">
+      <label class="form-label fw-semibold">Do you experience aggressive or harmful thoughts that you do not act on?</label>
+      <select name="q6" class="form-select" required>
+        <option value="0">Not at all</option>
+        <option value="1">A little</option>
+        <option value="2">Moderately</option>
+        <option value="3">Extremely</option>
+      </select>
+    </li>
+
+    <li class="mb-3 p-3 border rounded shadow-sm bg-light">
+      <label class="form-label fw-semibold">Are you overly focused on hygiene or cleanliness?</label>
+      <select name="q7" class="form-select" required>
+        <option value="0">Not at all</option>
+        <option value="1">A little</option>
+        <option value="2">Moderately</option>
+        <option value="3">Extremely</option>
+      </select>
+    </li>
+
+    <li class="mb-3 p-3 border rounded shadow-sm bg-light">
+      <label class="form-label fw-semibold">Do you feel a need to repeat tasks until they are “just right”?</label>
+      <select name="q8" class="form-select" required>
+        <option value="0">Not at all</option>
+        <option value="1">A little</option>
+        <option value="2">Moderately</option>
+        <option value="3">Extremely</option>
+      </select>
+    </li>
+
+    <li class="mb-3 p-3 border rounded shadow-sm bg-light">
+      <label class="form-label fw-semibold">Do you experience intrusive thoughts of a religious or moral nature?</label>
+      <select name="q9" class="form-select" required>
+        <option value="0">Not at all</option>
+        <option value="1">A little</option>
+        <option value="2">Moderately</option>
+        <option value="3">Extremely</option>
+      </select>
+    </li>
+
+    <li class="mb-3 p-3 border rounded shadow-sm bg-light">
+      <label class="form-label fw-semibold">Do you have difficulty discarding items even when they seem useless?</label>
+      <select name="q10" class="form-select" required>
+        <option value="0">Not at all</option>
+        <option value="1">A little</option>
+        <option value="2">Moderately</option>
+        <option value="3">Extremely</option>
+      </select>
+    </li>
+
+    <li class="mb-3 p-3 border rounded shadow-sm bg-light">
+      <label class="form-label fw-semibold">Do you repeat phrases or numbers mentally to relieve stress?</label>
+      <select name="q11" class="form-select" required>
+        <option value="0">Not at all</option>
+        <option value="1">A little</option>
+        <option value="2">Moderately</option>
+        <option value="3">Extremely</option>
+      </select>
+    </li>
+
+    <li class="mb-3 p-3 border rounded shadow-sm bg-light">
+      <label class="form-label fw-semibold">Do you avoid people, places, or things to prevent obsessive thoughts or compulsions?</label>
+      <select name="q12" class="form-select" required>
+        <option value="0">Not at all</option>
+        <option value="1">A little</option>
+        <option value="2">Moderately</option>
+        <option value="3">Extremely</option>
+      </select>
+    </li>
+  </ol>
+
+  <div class="text-center mt-4">
+    <button type="submit" class="btn btn-success px-4 py-2">Submit</button>
+  </div>
+</form>
+
+<div id="time-over-message" class="text-center mt-4" style="display: none;">
+  <h4 class="text-danger fw-bold">Time Over!</h4>
+  <button class="btn btn-warning mt-2" onclick="location.reload()">Try Again</button>
+</div>
+
+<div id="result-section" style="display: none;" class="mt-5 text-center">
+  <h4 id="result-message" class="fw-bold"></h4>
+  <canvas id="ocdResultChart" style="max-width: 500px; width: 100%; height: auto; margin: 0 auto;"></canvas>
+  <button class="btn btn-warning mt-3" onclick="location.reload()">Try Again</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  let timeLeft = 300;
+  const timerDisplay = document.getElementById("timer");
+  const form = document.getElementById("ocd-form");
+  const resultSection = document.getElementById("result-section");
+  const resultMessage = document.getElementById("result-message");
+  const timeOverMessage = document.getElementById("time-over-message");
+  const chartCanvas = document.getElementById("ocdResultChart");
+  let isTimeOver = false;
+
+  const countdown = setInterval(() => {
+    let min = Math.floor(timeLeft / 60);
+    let sec = timeLeft % 60;
+    timerDisplay.textContent = `${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
+    timeLeft--;
+
+    if (timeLeft < 0) {
+      clearInterval(countdown);
+      isTimeOver = true;
+      form.style.display = "none";
+      timeOverMessage.style.display = "block";
+      timerDisplay.textContent = "Time Over";
+    }
+  }, 1000);
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (isTimeOver) return;
+
+    clearInterval(countdown);
+
+    let total = 0;
+    for (let i = 1; i <= 12; i++) {
+      total += parseInt(document.querySelector(`select[name="q${i}"]`).value);
+    }
+
+    form.style.display = "none";
+    resultSection.style.display = "block";
+
+    let level = "Minimal";
+    if (total >= 10 && total < 20) level = "Moderate";
+    else if (total >= 20) level = "High";
+
+    resultMessage.innerText = `Your OCD Level: ${level} (${total}/36)`;
+
+    new Chart(chartCanvas, {
+      type: 'bar',
+      data: {
+        labels: ['OCD Score'],
+        datasets: [{
+          label: 'Your Score',
+          data: [total],
+          backgroundColor: '#198754',
+          borderColor: '#145c44',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 36
+          }
+        }
+      }
+    });
+  });
+</script>
+{% endblock %}
