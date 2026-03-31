@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Questionnaire{% endblock %}
+
+{% block content %}
+
+<div class="text-center my-4">
+    <h2 class="fw-bold">Mental Health Assessment</h2>
+    <p>Understand your <strong>symptoms</strong> with these <strong>assessment</strong> tests</p>
+</div>
+
+<!-- Top two cards in one centered row -->
+<div class="row justify-content-center mb-4">
+    <!-- 1. Personality Test -->
+    <div class="col-md-5 mb-3">
+        <div class="card h-100 shadow">
+            <img src="{% static 'images/personality.jpg' %}" class="card-img-top" alt="Personality Test" height="400cm">
+            <div class="card-body">
+                <h5 class="card-title fw-semibold">Personality Test</h5>
+                <p class="card-text">Understand your personality traits and behavioral patterns clearly.</p>
+                <p><i class="bi bi-clock"></i> 5 min &nbsp; <i class="bi bi-question-circle"></i> 12 Questions</p>
+                <a href="/personality_test/" class="btn btn-success">Take Test</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Stress Level Test -->
+    <div class="col-md-5 mb-3">
+        <div class="card h-100 shadow">
+            <img src="{% static 'images/stress_level.jpg' %}" class="card-img-top" alt="Stress Test" height="400cm">
+            <div class="card-body">
+                <h5 class="card-title fw-semibold">Stress Level Test</h5>
+                <p class="card-text">Evaluate your current stress level and emotional wellness.</p>
+                <p><i class="bi bi-clock"></i> 5 min &nbsp; <i class="bi bi-question-circle"></i> 12 Questions</p>
+                <a href="/stress_level_test/" class="btn btn-success">Take Test</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Grid layout for remaining 6 cards -->
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    <!-- Depression Test -->
+    <div class="col">
+        <div class="card h-100 shadow">
+            <img src="{% static 'images/depression.jpg' %}" class="card-img-top" alt="Depression Test">
+            <div class="card-body">
+                <h5 class="card-title fw-semibold">Depression Test</h5>
+                <p class="card-text">Identify signs of depression and gain clarity on your emotional state.</p>
+                <p><i class="bi bi-clock"></i> 5 min &nbsp; <i class="bi bi-question-circle"></i> 12 Questions</p>
+                <a href="/depression_test/" class="btn btn-success">Take Test</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Anxiety Test -->
+    <div class="col">
+        <div class="card h-100 shadow">
+            <img src="{% static 'images/anxiety.jpg' %}" class="card-img-top" alt="Anxiety Test">
+            <div class="card-body">
+                <h5 class="card-title fw-semibold">Anxiety Test</h5>
+                <p class="card-text">Measure how anxiety affects you and explore coping mechanisms.</p>
+                <p><i class="bi bi-clock"></i> 5 min &nbsp; <i class="bi bi-question-circle"></i> 12 Questions</p>
+                <a href="/anxiety_test/" class="btn btn-success">Take Test</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- OCD Symptoms Test -->
+    <div class="col">
+        <div class="card h-100 shadow">
+            <img src="{% static 'images/ocd.jpg' %}" class="card-img-top" alt="OCD Test">
+            <div class="card-body">
+                <h5 class="card-title fw-semibold">OCD Symptoms Test</h5>
+                <p class="card-text">Understand obsessive thoughts and compulsive behaviors.</p>
+                <p><i class="bi bi-clock"></i> 5 min &nbsp; <i class="bi bi-question-circle"></i> 12 Questions</p>
+                <a href="/OCD_test/" class="btn btn-success">Take Test</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sleep Quality Test -->
+    <div class="col">
+        <div class="card h-100 shadow">
+            <img src="{% static 'images/sleep_quality.jpg' %}" class="card-img-top" alt="Sleep Quality Test">
+            <div class="card-body">
+                <h5 class="card-title fw-semibold">Sleep Quality Assessment</h5>
+                <p class="card-text">Analyze how your mental state is affecting your sleep quality.</p>
+                <p><i class="bi bi-clock"></i> 5 min &nbsp; <i class="bi bi-question-circle"></i> 12 Questions</p>
+                <a href="/sleep_quality_test/" class="btn btn-success">Take Test</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Self-Esteem Test -->
+    <div class="col">
+        <div class="card h-100 shadow">
+            <img src="{% static 'images/self_esteem.jpg' %}" class="card-img-top" alt="Self Esteem Test" height="400cm">
+            <div class="card-body">
+                <h5 class="card-title fw-semibold">Self-Esteem Assessment</h5>
+                <p class="card-text">Reflect on your self-worth and confidence levels.</p>
+                <p><i class="bi bi-clock"></i> 5 min &nbsp; <i class="bi bi-question-circle"></i> 12 Questions</p>
+                <a href="/self_esteem_test/" class="btn btn-success">Take Test</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- PTSD Test -->
+    <div class="col">
+        <div class="card h-100 shadow">
+            <img src="{% static 'images/ptsd.jpg' %}" class="card-img-top" alt="PTSD Test" height="400cm">
+            <div class="card-body">
+                <h5 class="card-title fw-semibold">PTSD Assessment</h5>
+                <p class="card-text">Assess your mind for any trauma-related symptoms.</p>
+                <p><i class="bi bi-clock"></i> 5 min &nbsp; <i class="bi bi-question-circle"></i> 12 Questions</p>
+                <a href="/PTSD_test/" class="btn btn-success">Take Test</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
