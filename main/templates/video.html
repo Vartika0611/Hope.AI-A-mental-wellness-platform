@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Video Library | Hope.AI{% endblock %}
+{% block content %}
+
+<div class="container py-5">
+  <h2 class="text-center mb-4 text-primary">🎬 Video Library</h2>
+
+  <form method="get" class="row mb-4">
+    <div class="col-md-6">
+      <input type="text" name="q" value="{{ query }}" class="form-control" placeholder="Search by title or description">
+    </div>
+    <div class="col-md-4">
+  <label for="category" class="form-label">Category</label>
+  <select name="category" id="category" class="form-select">
+    <option value="">All Categories</option>
+    <option value="Relaxation" {% if category == "Relaxation" %}selected{% endif %}>Relaxation</option>
+    <option value="Motivation" {% if category == "Motivation" %}selected{% endif %}>Motivation</option>
+    <option value="Exercise" {% if category == "Exercise" %}selected{% endif %}>Exercise</option>
+  </select>
+</div>
+
+    <div class="col-md-2">
+      <button type="submit" class="btn btn-primary w-100">Filter</button>
+    </div>
+  </form>
+
+  <div class="row">
+    {% for video in videos %}
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title">{{ video.title }}</h5>
+          <p class="text-muted">{{ video.desc }}</p>
+          <p class="badge bg-secondary">{{ video.category }}</p>
+          <video controls class="w-100 mt-2">
+            <source src="{% static 'videos/'|add:video.video %}" type="video/mp4">
+            Your browser does not support the video element.
+          </video>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+      <p class="text-center">No videos found.</p>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}
