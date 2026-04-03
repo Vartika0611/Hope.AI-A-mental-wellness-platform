@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Login | Hope.AI{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-lg p-4 mx-auto" style="max-width: 600px;">
+        <h3 class="text-center mb-4">Login to Hope.AI</h3>
+
+        <!-- Step 1: Choose Category -->
+        <div id="step1">
+            <label class="form-label">Select Your Category</label>
+            <select class="form-select" id="categorySelect">
+                <option selected disabled>Choose...</option>
+                <option value="college">College</option>
+                <option value="corporate">Corporate</option>
+                <option value="individual">Individual</option>
+                <option value="startup">Startup</option>
+            </select>
+            <button class="btn btn-primary mt-3 w-100" onclick="goToStep2()">Next</button>
+        </div>
+
+        <!-- Step 2: Choose Subcategory -->
+        <div id="step2" style="display:none;">
+            <label class="form-label">Select Subcategory</label>
+            <select class="form-select" id="subCategorySelect">
+                <!-- Options populated dynamically -->
+            </select>
+            <button class="btn btn-secondary mt-3 me-2" onclick="backToStep1()">Back</button>
+            <button class="btn btn-primary mt-3" onclick="goToStep3()">Next</button>
+        </div>
+
+        <!-- Step 3: Login Form -->
+        <div id="step3" style="display:none;">
+            <form method="POST" action="{% url 'login' %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label">Email / Username</label>
+                    <input type="text" name="username" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" name="password" class="form-control" required>
+                </div>
+                <input type="hidden" name="category" id="finalCategory">
+                <input type="hidden" name="subcategory" id="finalSubCategory">
+                <button type="submit" class="btn btn-success w-100">Login</button>
+                <div class="text-center mt-2">
+                    <a href="#">Forgot Password?</a> | <a href="#">Register</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+function goToStep2() {
+    const category = document.getElementById("categorySelect").value;
+    if (!category) return;
+
+    document.getElementById("step1").style.display = "none";
+    document.getElementById("step2").style.display = "block";
+
+    const subCat = document.getElementById("subCategorySelect");
+    subCat.innerHTML = ""; // Clear old options
+
+    let options = [];
+    if (category === "college") options = ["Student", "Staff", "Faculty", "Admin"];
+    else if (category === "corporate") options = ["Manager", "Staff", "Employee", "Director"];
+    else if (category === "startup") options = ["Founder", "Co-founder", "Employee"];
+    else {
+        document.getElementById("step2").style.display = "none";
+        goToStep3();
+        return;
+    }
+
+    options.forEach(sub => {
+        let opt = document.createElement("option");
+        opt.value = sub.toLowerCase();
+        opt.innerHTML = sub;
+        subCat.appendChild(opt);
+    });
+}
+
+function goToStep3() {
+    document.getElementById("step2").style.display = "none";
+    document.getElementById("step3").style.display = "block";
+
+    document.getElementById("finalCategory").value = document.getElementById("categorySelect").value;
+    document.getElementById("finalSubCategory").value = document.getElementById("subCategorySelect").value;
+}
+
+function backToStep1() {
+    document.getElementById("step2").style.display = "none";
+    document.getElementById("step1").style.display = "block";
+}
+</script>
+{% endblock %}
