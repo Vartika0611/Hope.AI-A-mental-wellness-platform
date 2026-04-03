@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Logged Out{% endblock %}
+
+{% block content %}
+<div class="container mt-5 text-center">
+    <i class="bi bi-check-circle-fill text-success" style="font-size: 3rem;"></i>
+    <h2>You’ve been logged out</h2>
+    <p class="lead">Thank you for using <strong>Hope.AI</strong>.</p>
+    <a href="{% url 'login' %}" class="btn btn-outline-primary mt-3">Login Again</a>
+</div>
+{% endblock %}
