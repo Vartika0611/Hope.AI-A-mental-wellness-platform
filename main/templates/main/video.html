@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Video Library | Hope.AI{% endblock %}
+{% block content %}
+
+
+
+
+<div class="container mt-5">
+  <h2 class="text-center mb-4"><i class="bi bi-music-note-beamed"></i> 🎬 Video Library</h2>
+
+  <!-- Filter Bar -->
+  <form method="get" class="mb-4 text-center">
+    <label for="genre">Filter by Genre:</label>
+    <select name="genre" id="genre" onchange="this.form.submit()">
+      <option value="">All</option>
+      {% for genre in genres %}
+        <option value="{{ genre }}" {% if request.GET.genre == genre %}selected{% endif %}>{{ genre }}</option>
+      {% endfor %}
+    </select>
+  </form>
+
+
+
+  <div class="row">
+    {% for video in videos %}
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title">{{ video.title }}</h5>
+          <p class="text-muted">{{ video.desc }}</p>
+          <p class="badge bg-secondary">{{ video.category }}</p>
+          <video controls class="w-100 mt-2">
+            <source src="{{ video.file.url }}" type="video/mp4">
+
+            Your browser does not support the video element.
+          </video>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+      <p class="text-center">No videos found.</p>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

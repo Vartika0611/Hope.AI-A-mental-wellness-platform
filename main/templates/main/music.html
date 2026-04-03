@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Music Library{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <h2 class="text-center mb-4"><i class="bi bi-music-note-beamed"></i> Music Library</h2>
+
+  <!-- Filter Bar -->
+  <form method="get" class="mb-4 text-center">
+    <label for="genre">Filter by Genre:</label>
+    <select name="genre" id="genre" onchange="this.form.submit()">
+      <option value="">All</option>
+      {% for genre in genres %}
+        <option value="{{ genre }}" {% if request.GET.genre == genre %}selected{% endif %}>{{ genre }}</option>
+      {% endfor %}
+    </select>
+  </form>
+
+  <!-- Songs Grid -->
+  <div class="row">
+    {% for music in musics %}
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-lg p-3">
+          <img src="{{ music.image.url }}" class="card-img-top rounded" style="height: 200px; object-fit: cover;" alt="Music Image">
+          <div class="card-body">
+            <h5 class="card-title">{{ music.title }} - {{ music.genre }}</h5>
+            <audio controls class="w-100">
+              <source src="{{ music.file.url }}" type="audio/mpeg">
+              Your browser does not support the audio element.
+            </audio>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
