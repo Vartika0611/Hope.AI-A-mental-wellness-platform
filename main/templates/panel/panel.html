@@ -1,0 +1,179 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Expert Panel | Hope.AI{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Psychologist Cards</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9f9f9;
+      padding: 20px;
+    }
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 50px;
+      justify-content: center;
+    }
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      width: 500px;
+      padding: 20px;
+      transition: transform 0.2s;
+      cursor: pointer;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    .profile-img {
+      width: 100%;
+      height: 200px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+    .name {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin: 10px 0 4px;
+    }
+    .title, .languages, .specialties, .price, .next-slot, .rating {
+      font-size: 0.9rem;
+      margin: 4px 0;
+    }
+    .rating {
+      color: #f39c12;
+    }
+  </style>
+</head>
+<body>
+
+<h2 style="text-align: center;">Available Psychologists</h2>
+
+<div class="card-container" id="card-container">
+  <!-- Cards will be injected here -->
+</div>
+
+<script>
+  const psychologists = [
+    {
+      name: "mem1",
+      title: "Clinical Psychologist (2+ yrs)",
+      languages: "English, Hindi",
+      specialties: "Depression, Loneliness, Anxiety",
+      price: "₹900",
+      slot: "Today, 02:30 PM",
+      rating: "4.5 (21)",
+      img: "https://via.placeholder.com/320x200?text=Aayushi",
+    },
+    {
+      name: "mem2",
+      title: "Clinical Psychologist (4+ yrs)",
+      languages: "English, Hindi, Punjabi",
+      specialties: "Couple Therapy, Low Mood, Overthinking",
+      price: "₹1400",
+      slot: "Today, 03:00 PM",
+      rating: "4.9 (27)",
+      img: "https://via.placeholder.com/320x200?text=Japneet",
+    },
+    {
+      name: "mem3",
+      title: "Counselling Psychologist (4+ yrs)",
+      languages: "English",
+      specialties: "Self Discovery, Anxiety, Confidence",
+      price: "₹1500",
+      slot: "Today, 03:45 PM",
+      rating: "4.9 (5)",
+      img: "https://via.placeholder.com/320x200?text=Manasa",
+    },
+    {
+      name: "mem4",
+      title: "Counselling Psychologist (2+ yrs)",
+      languages: "English, Hindi",
+      specialties: "Low Mood, Anxiety, Stress",
+      price: "₹600",
+      slot: "Today, 04:00 PM",
+      rating: "4.7 (18)",
+      img: "https://via.placeholder.com/320x200?text=Nidhi",
+    },
+    {
+      name: "mem5",
+      title: "Counselling Psychologist (2+ yrs)",
+      languages: "English, Hindi",
+      specialties: "Low Mood, Anxiety, Stress",
+      price: "₹600",
+      slot: "Today, 04:00 PM",
+      rating: "4.7 (18)",
+      img: "https://via.placeholder.com/320x200?text=Nidhi",
+    },
+    {
+      name: "mem6",
+      title: "Counselling Psychologist (2+ yrs)",
+      languages: "English, Hindi",
+      specialties: "Low Mood, Anxiety, Stress",
+      price: "₹600",
+      slot: "Today, 04:00 PM",
+      rating: "4.7 (18)",
+      img: "https://via.placeholder.com/320x200?text=Nidhi",
+    },
+    {
+      name: "mem7",
+      title: "Counselling Psychologist (2+ yrs)",
+      languages: "English, Hindi",
+      specialties: "Low Mood, Anxiety, Stress",
+      price: "₹600",
+      slot: "Today, 04:00 PM",
+      rating: "4.7 (18)",
+      img: "https://via.placeholder.com/320x200?text=Nidhi",
+    },
+    {
+      name: "mem8",
+      title: "Counselling Psychologist (2+ yrs)",
+      languages: "English, Hindi",
+      specialties: "Low Mood, Anxiety, Stress",
+      price: "₹600",
+      slot: "Today, 04:00 PM",
+      rating: "4.7 (18)",
+      img: "https://via.placeholder.com/320x200?text=Nidhi",
+    },
+    
+  ];
+
+  const container = document.getElementById('card-container');
+
+  psychologists.forEach(doc => {
+    container.innerHTML += `
+      <div class="card" onclick="redirectToProfile('${encodeURIComponent(doc.name)}')">
+        <img src="${doc.img}" alt="${doc.name}" class="profile-img">
+        <div class="name">${doc.name}</div>
+        <div class="title">${doc.title}</div>
+        <div class="languages"><strong>Languages:</strong> ${doc.languages}</div>
+        <div class="specialties"><strong>Specialties:</strong> ${doc.specialties}</div>
+        <div class="price"><strong>Price:</strong> ${doc.price}</div>
+        <div class="next-slot"><strong>Next slot:</strong> ${doc.slot}</div>
+        <div class="rating"><strong>★</strong> ${doc.rating}</div>
+        
+        
+      </div>
+    `;
+  });
+
+ function redirectToProfile(name) {
+window.location.href = `/panel/${name.toLowerCase()}/`;
+}
+
+console.log(encodeURIComponent(doc.name))
+</script>
+
+</body>
+</html>
+
+{% endblock %}
