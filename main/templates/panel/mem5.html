@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Therapist Profile</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+      background-color: #fff;
+    }
+
+    .steps {
+      display: flex;
+      justify-content: space-around;
+      padding: 15px 0;
+      font-weight: bold;
+      color: #aaa;
+    }
+
+    .steps span.active {
+      color: #222;
+    }
+
+    .top-banner {
+      background: #d6f2ef;
+      border-radius: 20px;
+      padding: 30px;
+      text-align: center;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .top-banner h2 {
+      color: #02655d;
+      margin: 0;
+    }
+
+    .profile-info {
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+      padding-left: 20px;
+    }
+
+    .profile-img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 4px solid white;
+      margin-right: 20px;
+      object-fit: cover;
+    }
+
+    .profile-details h3 {
+      margin: 5px 0;
+    }
+
+    .rating {
+      color: #f39c12;
+      font-weight: bold;
+    }
+
+    .badge-group {
+      margin: 10px 0;
+    }
+
+    .badge {
+      display: inline-block;
+      background-color: #f0f7f7;
+      color: #222;
+      border-radius: 12px;
+      padding: 6px 12px;
+      margin: 6px;
+      font-size: 0.9rem;
+    }
+
+    .availability {
+      background: #e5f8f5;
+      padding: 10px;
+      margin: 20px 0 10px;
+      border-radius: 10px;
+      text-align: center;
+      color: #00796b;
+    }
+
+    .price-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .price {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .book-btn {
+      background-color: #007e5a;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 25px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .section {
+      margin-top: 30px;
+    }
+
+    .section h4 {
+      margin-bottom: 10px;
+    }
+
+    .superpower-box,
+    .thoughts-box {
+      background-color: #e8f6f5;
+      padding: 20px;
+      border-radius: 15px;
+    }
+
+    .superpower-box p,
+    .thoughts-box p {
+      margin: 12px 0;
+      font-size: 0.95rem;
+    }
+
+    .faq {
+      border-top: 1px solid #ccc;
+      padding: 15px 0;
+    }
+
+    .faq h5 {
+      margin: 0;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .faq p {
+      display: none;
+      margin-top: 10px;
+      color: #444;
+    }
+
+    .faq.open p {
+      display: block;
+    }
+
+    .icon {
+      margin-right: 6px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Step Indicator -->
+  <div class="steps">
+  <a href="{% url 'mem5' %}" style="text-decoration:none; font-weight: bold; color: black;">1 Therapist Profile</a>
+  <a href="{% url 'booking' %}" style="text-decoration:none; color: rgb(17, 1, 1);">2 Booking Details</a>
+  <a href="{% url 'payment' %}" style="text-decoration:none; color: rgba(14, 3, 3, 0.986);">3 Payment Details</a>
+</div>
+
+
+  <!-- Banner -->
+  <div class="top-banner">
+    <h2>“Make your mind a Priority”</h2>
+  </div>
+
+  <!-- Profile Info -->
+  <div class="profile-info">
+    <img class="profile-img" src="https://via.placeholder.com/100x100.png?text=Aayushi" alt="mem1">
+    <div class="profile-details">
+      <h3>mem5 <span class="rating">★ 4.5</span></h3>
+      <p>🧠 Clinical Psychologist</p>
+      <p>🎓 2+ yrs of experience</p>
+      <p>🌐 English, Hindi</p>
+    </div>
+  </div>
+
+  <div class="availability">Next Available Slot: <strong>Today, 05:45 PM</strong></div>
+
+  <!-- Pricing & Booking -->
+  <div class="price-section">
+    <div class="price">₹900<br><small>for 60 mins consultation</small></div>
+   <a href= "{% url 'booking' %}" class="book-btn">Book a Session</a>
+
+  </div>
+
+  <!-- Expertise -->
+  <div class="section">
+    <h4>Holds expertise in</h4>
+    <div class="badge-group">
+      <span class="badge">🧠 Depression</span>
+      <span class="badge">🧍 Loneliness</span>
+      <span class="badge">😰 Anxiety</span>
+      <span class="badge">🌟 Self Esteem and Confidence</span>
+      <span class="badge">💔 Breakups</span>
+      <span class="badge">🫂 Attachment Issues</span>
+      <span class="badge">😴 Sleep Issues</span>
+      <span class="badge">📉 Low Mood</span>
+      <span class="badge">🗣️ Communication</span>
+      <span class="badge">🚫 Substance Use</span>
+    </div>
+  </div>
+
+  <!-- Superpowers -->
+  <div class="section">
+    <h4>mem5 superpowers</h4>
+    <div class="superpower-box">
+      <p>⚡ Empathetic Listener, Intuitive and Compassionate.</p>
+      <p>⚡ Started conducting workshops for students, attended trauma-focused sessions, co-authored the article “Marshal Moms…” in *Women at Work: A Holistic Outlook*</p>
+      <p>⚡ Empathetic, creative and has a calm presence.</p>
+    </div>
+  </div>
+
+  <!-- About & FAQs -->
+  <div class="section">
+    <h4>About me</h4>
+    <p>mem5 a clinical psychologist registered with the Rehabilitation Council of India. I hol...</p>
+  </div>
+
+  <div class="faq" onclick="toggleFAQ(this)">
+    <h5>What approaches do I use? <span>▾</span></h5>
+    <p>Cognitive Behavioral Therapy, Mindfulness, and Trauma-informed practices.</p>
+  </div>
+
+  <div class="faq" onclick="toggleFAQ(this)">
+    <h5>Why did I choose to become a therapist? <span>▾</span></h5>
+    <p>Because I want to help people heal mentally and emotionally.</p>
+  </div>
+
+  <div class="faq" onclick="toggleFAQ(this)">
+    <h5>What are my qualifications? <span>▾</span></h5>
+    <p>M.A. in Clinical Psychology, Certified from RCI.</p>
+  </div>
+
+  <!-- Thoughts -->
+  <div class="section">
+    <h4>Thoughts I can help you with</h4>
+    <div class="thoughts-box">
+      <p>“I’m not good enough.” 💭</p>
+      <p>“What if something bad happens.” 💭</p>
+      <p>“They don’t love me the way I need.” 💭</p>
+      <p>“I’m broken because of what happened.” 💭</p>
+      <p>“I should have done more to help.” 💭</p>
+      <p>“If I don’t do it perfectly.” 💭</p>
+      <p>“I’ve failed.” 💭</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function toggleFAQ(element) {
+    element.classList.toggle('open');
+  }
+</script>
+<script>
+  const mem5Url = "{% url 'mem5' %}";
+</script>
+</body>
+</html>
